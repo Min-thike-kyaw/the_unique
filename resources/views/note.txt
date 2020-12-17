@@ -1,0 +1,145 @@
+$followers = Follower::where('user_id',5)->get();
+dd($followers);
+
+use Illuminate\Support\Str;
+
+$converted = Str::kebab('fooBar');
+
+// foo-bar
+
+//image_upload
+$data = new NewsAndEvent();
+        $imgs = array();
+        // return $request->all();
+        if ($files = $request->file('event_imgs')) {
+            foreach ($files as $file) {
+                $name = $file->getClientOriginalName();
+                $file->move('images', $name);
+                array_push($imgs, $name);
+            }
+            $data->title=$request->get('title');
+            $data->news_img = implode(',', $imgs);
+            $data->event_date = $request->get('date');
+            $data->news_content = $request->get('description') ;//. ' (' . date("F d Y", strtotime($request->get('date'))) . ')'
+            $data->save();
+        }
+
+
+        root' => storage_path('app'),
+
+
+<div id="wrapper">
+	<div id="page" class="container">
+		<div id="content">
+			<div class="title">
+				<h2>Welcome to our website</h2>
+				<span class="byline">Mauris vulputate dolor sit amet nibh</span> </div>
+			<p><img src="images/banner.jpg" alt="" class="image image-full" /> </p>
+			<p>Aliquam libero. Vivamus nisl nibh, iaculis vitae, viverra sit amet, ullamcorper vitae, turpis. Aliquam erat volutpat. Vestibulum dui sem, pulvinar sed, imperdiet nec, iaculis nec, leo. Fusce odio. Etiam arcu dui, faucibus eget, placerat vel, sodales eget, orci. Donec ornare neque ac sem. Mauris aliquet. Aliquam sem leo, vulputate sed, convallis at, ultricies quis, justo. Donec nonummy magna quis risus. Quisque eleifend. Phasellus tempor vehicula justo. Aliquam lacinia metus ut elit. Suspendisse iaculis mauris nec lorem. Donec leo. Vivamus fermentum nibh in augue. Praesent a lacus at urna congue rutrum. Nulla enim eros, porttitor eu, tempus id, varius non, nibh. </p>
+			<p>Donec condimentum, urna non molestie semper, ligula enim ornare nibh, quis laoreet eros quam eget ante. Aliquam libero. Vivamus nisl nibh, iaculis vitae, viverra sit amet, ullamcorper vitae, turpis. Aliquam erat volutpat. Vestibulum dui sem, pulvinar sed, imperdiet nec, iaculis nec, leo. Fusce odio. Etiam arcu dui, faucibus eget, placerat vel, sodales eget, orci. Donec ornare neque ac sem. Mauris aliquet. Aliquam sem leo, vulputate sed, convallis at, ultricies quis, justo. Donec nonummy magna quis risus. Quisque eleifend. Phasellus tempor vehicula justo.</p>
+			<p>Donec condimentum, urna non molestie semper, ligula enim ornare nibh, quis laoreet eros quam eget ante. Aliquam libero. Vivamus nisl nibh, iaculis vitae, viverra sit amet, ullamcorper vitae, turpis. Aliquam erat volutpat. Vestibulum dui sem, pulvinar sed, imperdiet nec, iaculis nec, leo. Fusce odio. Etiam arcu dui, faucibus eget, placerat vel, sodales eget, orci. Donec ornare neque ac sem. Mauris aliquet. Aliquam sem leo, vulputate sed, convallis at, ultricies quis, justo. Donec nonummy magna quis risus. Quisque eleifend. Phasellus tempor vehicula justo.</p>
+		</div>
+		<div id="sidebar">
+			<ul class="style1">
+				<li class="first">
+                
+					<h3>{{$post->title}}</h3>
+					<p><a href="#">{{$post->excerpt}}</a></p>
+				</li>
+			</ul>
+			<div id="stwo-col">
+				<div class="sbox1">
+					<h2>Etiam rhoncus</h2>
+					<ul class="style2">
+						<li><a href="#">Semper quis egetmi dolore</a></li>
+						<li><a href="#">Quam turpis feugiat dolor</a></li>
+						<li><a href="#">Amet ornare hendrerit lectus</a></li>
+						<li><a href="#">Quam turpis feugiat dolor</a></li>
+					</ul>
+				</div>
+				<div class="sbox2">
+					<h2>Integer gravida</h2>
+					<ul class="style2">
+						<li><a href="#">Semper quis egetmi dolore</a></li>
+						<li><a href="#">Quam turpis feugiat dolor</a></li>
+						<li><a href="#">Consequat lorem phasellus</a></li>
+						<li><a href="#">Amet turpis feugiat amet</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+    Total - {{$posts->count()}}
+    <br><hr>
+    <p class="mention">Latest Article</p>
+    <div class="container">
+      <div class="row">
+      @php
+        $x = 0;
+      @endphp 
+        @foreach($posts as $post) 
+          @if($x < 6) 
+        
+              <div class="card col-md-3 post">
+                <div class="card-body">
+                  <h5 class="card-title"><a href="/{{$post->category->name}}/{{$post->id}}"><h3 class="post-head">{{$post->title}}</h3></a> </h5>
+                  by <a href="/authors/{{$post->user->name}}">{{$post->author_name}}</a>
+                  <br>
+                $category - {{ $post->category->name }}
+                  <br>
+                </div>
+            </div>
+            @endif
+        @php
+          $x++;
+        @endphp
+ 
+        @endforeach 
+
+        
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="container">
+    @php
+        $x = 0;
+      @endphp 
+      @foreach($categories as $category) 
+      @if($x < 6) 
+        <p class="mention">{{$category->name}}</p>
+        <div class="row">
+          @foreach($posts as $post)
+            @if($category->id == $post->category->id )
+              <div class="card col-md-3 post">
+                    <div class="card-body">
+                      <h5 class="card-title"><a href="/{{$post->category->name}}/{{$post->id}}"><h3 class="post-head">{{$post->title}}</h3></a> </h5>
+                      by <a href="/authors/{{$post->user->name}}">{{$post->author_name}}</a>
+                      <br> 
+                    </div>
+              </div>  
+            @endif  
+          @endforeach
+        </div>
+        @endif
+        @php
+          $x++;
+        @endphp
+      @endforeach 
+    </div>
+  </div>
+
+
+
+
+  $post = new Post($request(['title','excerpt','body'] + ['author_id' => auth()->user()->id,'image'=>$imageName]));
+        $post->save();
+        $post->categories()->attach(request('categories'));
+
+
+        {{ $post->category_id == $category->id ? "selected" : ""}}
